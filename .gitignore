@@ -1,1 +1,20 @@
-*.png
+# Ignore large data files and model checkpoints
+checkpoints/
+data/
+
+# Ignore virtual environments
+env/
+tfenv/
+
+# Ignore Jupyter junk and Python cache
+__pycache__/
+.ipynb_checkpoints/
+.dist/
+*.ipynb_checkpoints/
+
+# MacOS stuff
+.DS_Store
+
+# Optional logs or experiments
+*.log
+*.tmp

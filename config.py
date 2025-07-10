@@ -8,7 +8,7 @@ GAZE_HP_AU_LMK_PDM = 'engage_gaze+hp+au+lmk+pdm'
 MARLIN = 'marlin_features_large'
 BODYPOSE = 'engage_openface_bodypose'
 XCLIP = 'engage_xclip'
-FUSION = 'engage_gaze+hp+au_marlin'
+FUSION = 'fusion'
 LABEL_MAP = {
     'Not-Engaged': 0,
     'Barely-engaged': 1,
