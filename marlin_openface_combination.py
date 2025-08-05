@@ -55,6 +55,17 @@ def load_marlin(file_path):
         return None
 
 def main():
+    # Checking: Missing OpenFace list
+    marlin_ids = set([os.path.splitext(f)[0] for f in os.listdir(MARLIN_DIR) if f.endswith('.npy')])
+    openface_ids = set([os.path.splitext(f)[0] for f in os.listdir(OPENFACE_DIR) if f.endswith('.csv')])
+    missing_openface_ids = sorted(marlin_ids - openface_ids)
+
+    print(f"📊 Total MARLIN files: {len(marlin_ids)}")
+    print(f"📊 Total OpenFace CSVs: {len(openface_ids)}")
+    print(f"❌ Missing OpenFace CSVs: {len(missing_openface_ids)}")
+    if missing_openface_ids:
+        print("Examples:", missing_openface_ids[:10])
+
     labels_df = pd.read_csv(LABELS_CSV)
     samples = []
 
@@ -64,8 +75,8 @@ def main():
     saved = 0
 
     for i, (_, row) in enumerate(tqdm(labels_df.iterrows(), total=len(labels_df))):
-        video_id = str(row["ClipID"])
-        label = row["Engagement"]
+        video_id = str(row["video_id"])
+        label = row["label"]
 
         marlin_path = os.path.join(MARLIN_DIR, f"{video_id}.npy")
         openface_path = find_openface_csv(video_id, OPENFACE_DIR)
@@ -91,18 +102,11 @@ def main():
         samples.append([video_id, marlin, openface_proj, label])
         saved += 1
 
-        # 🔍 DEBUG tracker for the first 5 samples
         if saved <= 5:
             print(f"\nSample {saved} - Clip ID: {video_id}")
             print(f"  ➤ MARLIN shape:    {marlin.shape}")
             print(f"  ➤ OpenFace shape: {openface_proj.shape}")
             print(f"  ➤ Combined shape: {combined.shape}")
-
-        if saved % 100 == 0:
-            print(f"✅ Saved {saved} samples so far...")
-
-    np.save(SAVE_PATH, np.array(samples, dtype=object))
-
 
     np.save(SAVE_PATH, np.array(samples, dtype=object))
     print(f"\n✅ Done. Total saved: {saved}")
