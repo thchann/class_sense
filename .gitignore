@@ -18,6 +18,3 @@ __pycache__/
 # Optional logs or experiments
 *.log
 *.tmp
-
-# Ignore obs files
-obs.py
