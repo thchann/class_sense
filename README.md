@@ -12,3 +12,33 @@ About the dataset:
 - There are a total of 7983 Train, 1071 Validation, and 2257 Test videos.
 
 Code, Models: Will be made available soon.
+
+## Setup:
+
+# Clone MARLIN somewhere local
+git clone https://github.com/microsoft/MARLIN.git
+cd MARLIN
+
+# Install MARLIN dependencies
+pip install -r requirements.txt
+
+# (Optional) Install FaceXZoo if not included
+git clone https://github.com/JDAI-CV/FaceX-Zoo.git FaceXZoo
+
+## 🚀 Quick Start
+
+# Clone the repo
+git clone https://github.com/<yourusername>/engagenet_baselines.git
+cd engagenet_baselines
+
+# Create environment
+python3 -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+
+# (Optional) setup MARLIN + FaceXZoo
+mkdir -p .marlin && cd .marlin
+git clone https://github.com/microsoft/MARLIN.git
+cd MARLIN && git clone https://github.com/JDAI-CV/FaceX-Zoo.git FaceXZoo
+
+# Run live demo
+python live_marlin_openface_combination.py
