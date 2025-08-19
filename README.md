@@ -15,10 +15,6 @@ Code, Models: Will be made available soon.
 
 ## Setup:
 
-# Clone MARLIN somewhere local
-git clone https://github.com/microsoft/MARLIN.git
-cd MARLIN
-
 # Install MARLIN dependencies
 pip install -r requirements.txt
 
