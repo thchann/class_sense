@@ -26,10 +26,9 @@ from typing import Tuple
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import RandomOverSampler
 
-# Constants (replace with config.py if you want central config)
 RANDOM_STATE = 42
 TEST_SIZE = 0.20
-VAL_SIZE = 0.20  # relative to remainder after test split
+VAL_SIZE = 0.20
 
 
 # -----------------------
@@ -42,16 +41,12 @@ def prepare_labels(raw_csv: str, save_path: str = "data/final_labels.csv") -> No
     df = pd.read_csv(raw_csv)
     df.columns = [c.strip() for c in df.columns]
 
-    # Build video_id column without .avi extension
     df["video_id"] = df["ClipID"].str.replace(".avi", "", regex=False)
 
-    # Keep only video_id + Engagement, rename for consistency
     df = df[["video_id", "Engagement"]].rename(columns={"Engagement": "label"})
 
-    # Drop rows without labels
     df = df.dropna(subset=["label"])
 
-    # Ensure output folder exists
     dirn = os.path.dirname(save_path)
     if dirn:
         os.makedirs(dirn, exist_ok=True)
@@ -91,13 +86,13 @@ def _unpack_Xy_fusion(Xy: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarra
     for clip_id, marlin, openface, label in Xy:
         marlin = np.asarray(marlin)
         if marlin.ndim == 1:
-            marlin = marlin[None, :]  # ensure (1,768)
+            marlin = marlin[None, :]  # ensures (1,768)
         x1_list.append(marlin)
         x2_list.append(np.asarray(openface))
         y_list.append(label)
 
-    x1 = np.stack(x1_list, axis=0)  # (N,1,768)
-    x2 = np.stack(x2_list, axis=0)  # (N,T,D)
+    x1 = np.stack(x1_list, axis=0)
+    x2 = np.stack(x2_list, axis=0)
     y  = np.asarray(y_list)
     return x1, x2, y
 
@@ -129,7 +124,7 @@ def load_fusion_splits(
         random_state=random_state,
     )
 
-    # 2) Split remaining into train/val
+    # 2) Split remaining into training/validation set
     val_rel = val_size / (1.0 - test_size)  # val proportion of remaining
     x1_train, x1_val, x2_train, x2_val, y_train, y_val = train_test_split(
         x1_temp, x2_temp, y_temp,
@@ -138,7 +133,7 @@ def load_fusion_splits(
         random_state=random_state,
     )
 
-    # 3) Optional oversampling on train set
+    # 3) Optional oversampling on train set to fix overfiting
     if oversample:
         n_train, _, marlin_dim = x1_train.shape
         T, D = x2_train.shape[1], x2_train.shape[2]
@@ -169,8 +164,8 @@ def load_fusion_splits(
 # -----------------------
 def data_loader_fusion(feature_type="fusion", val=True, base_dir="data"):
     """
-    Drop-in replacement for your old data_loader_fusion.
-    Same signature + return format, so your training scripts work unchanged.
+    Drop-in replacement for the old data_loader_fusion.
+    Same signature + return format, so training scripts work unchanged.
     Under the hood it uses load_fusion_splits (the bug-fixed version).
     """
     splits = load_fusion_splits(

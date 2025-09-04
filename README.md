@@ -16,25 +16,25 @@ Code, Models: Will be made available soon.
 ## Setup:
 
 # Install MARLIN dependencies
-pip install -r requirements.txt
+- pip install -r requirements.txt
 
 # (Optional) Install FaceXZoo if not included
-git clone https://github.com/JDAI-CV/FaceX-Zoo.git FaceXZoo
+- git clone https://github.com/JDAI-CV/FaceX-Zoo.git FaceXZoo
 
 ## 🚀 Quick Start
 
 # Clone the repo
-git clone https://github.com/<yourusername>/engagenet_baselines.git
-cd engagenet_baselines
+- git clone https://github.com/<yourusername>/engagenet_baselines.git
+- cd engagenet_baselines
 
 # Create environment
-python3 -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
+- python3 -m venv venv && source venv/bin/activate
+- pip install -r requirements.txt
 
 # (Optional) setup MARLIN + FaceXZoo
-mkdir -p .marlin && cd .marlin
-git clone https://github.com/microsoft/MARLIN.git
-cd MARLIN && git clone https://github.com/JDAI-CV/FaceX-Zoo.git FaceXZoo
+- mkdir -p .marlin && cd .marlin
+- git clone https://github.com/microsoft/MARLIN.git
+- cd MARLIN && git clone https://github.com/JDAI-CV/FaceX-Zoo.git FaceXZoo
 
 # Run live demo
-python live_marlin_openface_combination.py
+- python live_marlin_openface_combination.py

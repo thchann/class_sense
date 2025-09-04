@@ -1,4 +1,3 @@
-# live_marlin_openface_combination.py
 import os, sys, cv2, torch, numpy as np, mediapipe as mp, warnings, logging
 from marlin_pytorch import Marlin
 from tensorflow.keras.models import load_model as tf_load_model
@@ -188,7 +187,7 @@ def process_buffer():
         raw_probs = np.mean(
             [engage_model([marlin_feats, openface_feats], training=True).numpy() for _ in range(5)],
             axis=0
-        )  # shape (1, 4) in model's native class order
+        )  
 
         logits = np.log(raw_probs + eps)
         if USE_ONLINE_PRIOR:
@@ -197,10 +196,7 @@ def process_buffer():
         logits = logits / TEMPERATURE
         logits -= np.max(logits, axis=-1, keepdims=True)
         probs = np.exp(logits); probs /= (np.sum(probs, axis=-1, keepdims=True) + eps)
-
-        # -------- REMAP HERE --------
-        probs = probs[:, CLASS_REMAP]  # now order matches CLASS_NAMES
-        # ----------------------------
+        probs = probs[:, CLASS_REMAP]
 
         pred_history.append(probs[0])
         avg_pred = np.mean(pred_history, axis=0)

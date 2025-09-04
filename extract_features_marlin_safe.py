@@ -1,3 +1,14 @@
+# Extract_features_marlin_safe and Extract_features_marlin were both in the original repo.
+# Original repo link: https://github.com/engagenet/engagenet_baselines
+# These are some differences between the two:
+
+# Reads input video paths directly from todo<rank>.txt (no base_path/chunks/ prefix)
+# Outputs features into subject-specific subfolders: pafe/data/<subject>/marlin_features_<feature_type>/
+# Skips already-processed files using ONLY the processed log (does not check output dir)
+# Feature_type is passed via command-line args (default 'small'), rank defaults to 0
+# Extracts subject id with vname.split('/')[1] to organize outputs
+# Includes unused functions (load_labels, multiprocessing) not called in main flow
+
 from marlin_pytorch import Marlin
 import torch.multiprocessing as mp
 
@@ -55,8 +66,6 @@ def main(marlin_feature_type, rank):
             log(f'{marlin_feature_type}_processed_{rank}.txt', vname)
 
         except Exception as e:
-            
-#           logging errors
             print (e)
             log(f'{marlin_feature_type}_errors_{rank}.txt', vname)
             

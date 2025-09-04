@@ -8,6 +8,7 @@ tfenv/
 # Ignore all checkpoints by default
 checkpoints/*
 !checkpoints/fusion_best.keras
+!checkpoints/fusion.epoch29-acc0.80.keras
 
 # Ignore Jupyter junk and Python cache
 __pycache__/

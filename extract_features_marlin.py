@@ -1,3 +1,13 @@
+# Extract_features_marlin_safe and Extract_features_marlin were both in the original repo.
+# Original repo link: https://github.com/engagenet/engagenet_baselines
+# These are some differences between the two:
+
+# Uses absolute base_path + "chunks/" prefix for input videos
+# Outputs all features into a flat folder: marlin_features_<feature_type>/
+# Skips already-processed files by checking BOTH processed log + existing .pt files in output dir
+# Hard-codes feature_type='large' and rank='ESC'
+# Reads todo list, prefixes each entry with "chunks/"
+
 from marlin_pytorch import Marlin
 from tqdm import tqdm
 import torch
