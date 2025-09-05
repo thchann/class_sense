@@ -34,5 +34,5 @@ We trained **EngageNet** on the DAiSEE dataset and achieved:
 - **Validation Accuracy**: 80% stored (77.51% in random test run)
 
 <p align="center">
-  <img src="/Users/theodorechan/external_libs/engagenet_baselines/images/epoch200-0.7551acc.png" alt="Validation Accuracy Curve" width="500"/>
+  <img src="./images/epoch200-0.7551acc.png" alt="Validation Accuracy Curve" width="500"/>
 </p>
