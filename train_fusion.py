@@ -88,7 +88,7 @@ def train(model_name):
     )
 
     checkpoint_callback = ModelCheckpoint(
-        filepath='checkpoints/fusion_best.keras',
+        filepath='checkpoints/fusion.epoch29-acc.0.80.keras',
         monitor='val_accuracy',
         save_best_only=True,
         verbose=1
