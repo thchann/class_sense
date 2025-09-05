@@ -8,10 +8,6 @@
 
 ## 🚀 Quick Start
 
-# Clone the repo
-- git clone https://github.com/<yourusername>/engagenet_baselines.git
-- cd engagenet_baselines
-
 # Create environment
 - python3 -m venv venv && source venv/bin/activate
 - pip install -r requirements.txt
